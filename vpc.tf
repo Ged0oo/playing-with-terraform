@@ -1,11 +1,11 @@
 // Defines AWS as the infrastructure provider
 provider "aws" {
-  region = "us-east-1"
+  region = var.vpc_az
 }
 
 // Defines Virtual Private Cloud (VPC)
 resource "aws_vpc" "myvpc" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block = var.vpc_cidr
   tags = {
     Name = "MyVPC"
   }
@@ -14,7 +14,7 @@ resource "aws_vpc" "myvpc" {
 // Creates a subnet 
 resource "aws_subnet" "mysubnet" {
   vpc_id                  = aws_vpc.myvpc.id
-  cidr_block              = "10.0.1.0/24"
+  cidr_block              = var.vpc_subnet
   map_public_ip_on_launch = true
   availability_zone       = "us-east-1a"
   tags = {
