@@ -1,34 +1,44 @@
 // Defines AWS as the infrastructure provider
 provider "aws" {
-  region = var.vpc_az
+  	region = var.vpc_az
 }
 
 // Defines Virtual Private Cloud (VPC)
 resource "aws_vpc" "myvpc" {
-  cidr_block = var.vpc_cidr
-  tags = {
-    Name = "MyVPC"
-  }
+	cidr_block = var.vpc_cidr
+	tags = {
+		Name = "MyVPC"
+	}
+
+	provisioner "local-exec" {
+		command = "echo ${self.id} > aws_vpc_id.txt"
+	}
 }
 
 // Creates a subnet 
 resource "aws_subnet" "mysubnet" {
-  vpc_id                  = aws_vpc.myvpc.id
-  cidr_block              = var.vpc_subnet
-  map_public_ip_on_launch = true
-  availability_zone       = "us-east-1a"
-  tags = {
-    Name = "MySubnet"
-  }
+	vpc_id                  = aws_vpc.myvpc.id
+	cidr_block              = var.vpc_subnet
+	map_public_ip_on_launch = true
+	availability_zone       = "us-east-1a"
+	tags = {
+		Name = "MySubnet"
+	}
+	provisioner "local-exec" {
+		command = "echo ${self.id} > subnet_id.txt"
+	}
 }
 
 // Attaches an Internet Gateway to the VPC 
 // to allow public internet access.
 resource "aws_internet_gateway" "myigw" {
-  vpc_id = aws_vpc.myvpc.id
-  tags = {
-    Name = "MyInternetGateway"
-  }
+	vpc_id = aws_vpc.myvpc.id
+	tags = {
+		Name = "MyInternetGateway"
+	}
+	provisioner "local-exec" {
+		command = "echo ${self.id} > internetgateway_id.txt"
+	}
 }
 
 // Creates a Route Table within the VPC.
