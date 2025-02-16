@@ -1,6 +1,12 @@
+variable "vpc_name" {
+	description = "Name of the VPC"
+	type        = string
+	default     = "MyVPC"
+}
+
 variable "vpc_az" {
 	type = string  
-	default = "us-east-1"
+	default = "us-east-1a"
 }
 
 variable "vpc_cidr" {
@@ -8,12 +14,12 @@ variable "vpc_cidr" {
 	default = "10.0.0.0/16"
 }
 
-variable "vpc_public_subnet" {
+variable "public_subnet" {
 	type = string  
 	default = "10.0.0.0/24"
 }
 
-variable "vpc_private_subnet" {
+variable "private_subnet" {
 	type = string  
 	default = "10.0.1.0/24"
 }

@@ -1,15 +1,15 @@
 output "vpc_id" {
-	value = aws_vpc.myvpc.id
+	value = module.networking.vpc_id
 }
 
 output "public_subnet_id" {
-	value = aws_subnet.mysubnet.id
+	value = module.networking.public_subnet_id
 }
 
 output "private_subnet_id" {
-	value = aws_subnet.private_subnet.id
+	value = module.networking.private_subnet_id
 }
 
 output "internetgateway_id" {
-	value = aws_internet_gateway.myigw.id
+	value = module.networking.internet_gateway_id
 }
